@@ -68,29 +68,75 @@ function addtask(task) {
     taskdetail.style.gap = 'var(--spacing)'
     taskdata.append(taskdetail);
 
-    // #3-2-1 할일 기한 요소
-    const taskdue = document.createElement('input');
-    taskdue.classList.add('taskdue');
-    taskdue.name = 'taskdatedisplay'
-    taskdue.type = 'date'
-    taskdue.value = taskDue;
-    taskdue.addEventListener('focusout', function() {
-        task.due = taskdue.value         // 기한 자동 변경
-        savetasks()                                 // 변경 후 자동 저장
-    })
-    taskdetail.append(taskdue);
+    // #3-2-1 할일 기한 래퍼
+    const taskduewrap = document.createElement('div');
+    taskduewrap.classList.add('taskduewrap');
+    taskduewrap.setAttribute('data-wrap', '');
+    taskdetail.append(taskduewrap);
 
-    // #3-2-2 할일 날짜 요소
-    const taskdate = document.createElement('input');
-    taskdate.classList.add('taskdate');
-    taskdate.name = 'taskdatedisplay'
-    taskdate.type = 'date'
-    taskdate.value = taskDate;
-    taskdate.addEventListener('focusout', function() {
-        task.date = taskdate.value;        // 날짜 자동 변경
-        savetasks();                                 // 변경 후 자동 저장
-    })
-    taskdetail.append(taskdate);
+        // 아이콘
+        const taskdueicon = document.createElement('span');
+        taskdueicon.classList.add('material-symbols-rounded');
+        taskdueicon.innerHTML = 'flag_2';
+        taskduewrap.append(taskdueicon);
+
+        // 실제 input
+        const taskdue = document.createElement('input');
+        taskdue.classList.add('taskdue');
+        taskdue.type = 'text'
+        taskdue.value = taskDue;
+        taskdue.placeholder = '마감일...'
+        taskdue.setAttribute('data-input', '');
+        taskduewrap.append(taskdue);
+
+            // 3-2-1에 fletpickr 적용
+            flatpickr(taskduewrap, {
+                wrap: true,
+                dateFormat: "Y-m-d",
+                disableMobile: true,
+                altInput: true,
+                altFormat: "m월 d일",
+                altInputClass: "taskdue-alt",
+                onChange: function() {
+                    task.due = taskdue.value
+                    savetasks()
+                }
+            });
+
+    // #3-2-2 할일 날짜 래퍼
+    const taskdatewrap = document.createElement('div');
+    taskdatewrap.classList.add('taskduewrap');
+    taskdatewrap.setAttribute('data-wrap', '');
+    taskdetail.append(taskdatewrap);
+
+        // 아이콘
+        const taskdateicon = document.createElement('span');
+        taskdateicon.classList.add('material-symbols-rounded');
+        taskdateicon.innerHTML = 'calendar_today';
+        taskdatewrap.append(taskdateicon);
+
+        // 실제 input
+        const taskdate = document.createElement('input');
+        taskdate.classList.add('taskdate');
+        taskdate.type = 'text'
+        taskdate.value = taskDate;
+        taskdate.placeholder = '시작일...'
+        taskdate.setAttribute('data-input', '');
+        taskdatewrap.append(taskdate);
+
+            // 3-2-1에 fletpickr 적용
+            flatpickr(taskdatewrap, {
+                wrap: true,
+                dateFormat: "Y-m-d",
+                disableMobile: true,
+                altInput: true,
+                altFormat: "m월 d일",
+                altInputClass: "taskdate-alt",
+                onChange: function() {
+                    task.date = taskdate.value
+                    savetasks()
+                }
+            })
 
     // #4 스페이싱
     const spacer = document.createElement('div');
@@ -134,8 +180,9 @@ function addtodo() {
         createwarning('할일 이름이 비어 있습니다')
         return; // 빈 입력은 추가하지 않음
     }
-    tasks.push({"name": taskname, "completed": false, "date": taskdate, "due": taskdue}); // 할일 추가
-    addtask({"name": taskname, "completed": false, "date": taskdate, "due": taskdue})
+    const newtask = {"name": taskname, "completed": false, "date": taskdate, "due": taskdue}
+    tasks.push(newtask); // 할일 추가
+    addtask(newtask);
     document.getElementById('taskinput').value = ''; // 입력란 초기화
 }
 

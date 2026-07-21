@@ -2,6 +2,7 @@
     font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     --theme-blue: rgb(72, 97, 255);
     --theme-red: rgb(255, 107, 107);
+    interpolate-size: allow-keywords;
     
     /* 공통 크기 */
     --btn-size: 35px;
@@ -10,11 +11,22 @@
     --spacing: 5px;
 }
 
+::-moz-selection {
+    background-color: var(--theme-blue);
+    color: white; 
+}
+
+::selection {
+    background-color: var(--theme-blue);
+    color: white; 
+}
+
 /* 입력창 행 */
 .inputrow {
     display: flex;
     align-items: center;
     gap: var(--spacing);
+    flex-wrap: wrap;
 
     #taskinput {
         font-family: inherit;
@@ -26,10 +38,39 @@
         border: 2px solid gray;
         outline: none;
         flex: 1;
+        flex-basis: 0;
 
         &:focus, &:hover {
             border-color: var(--theme-blue);
         }
+    }
+
+    #taskdue-wrap, #taskdate-wrap {
+        border: 2px solid gray;
+        transition: all 0.3s ease;
+        border-radius: var(--input-radius);
+        display: flex;
+        align-items: center;
+
+        span {
+            margin-left: 2px;
+        }
+
+        &.active, &:hover {
+            border-color: var(--theme-blue);
+        }
+
+    }
+
+    .taskdue-alt, .taskdate-alt {
+        background-color: transparent;
+        field-sizing: content;
+        font-size: 20px;
+        padding: var(--spacing);
+        outline: none;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        border: none;
     }
 
     #addtaskbutton {
@@ -56,32 +97,6 @@
             background-color: color-mix(in srgb, var(--theme-blue) 15%, transparent);
             transform: scale(0.9);
         }
-    }
-}
-
-input[type='date'] {
-    background-color: transparent;
-    width: 150px;
-    font-size: 20px;
-    padding: var(--spacing);
-    border-radius: var(--input-radius);
-    outline: none;
-    border: 2px solid gray;
-    font-family: inherit;
-    transition: all 0.3s ease;
-
-    &::-webkit-calendar-picker-indicator {
-        background-image: url(images/calendar.svg);
-    }
-
-    &:focus, &:hover {
-        border-color: var(--theme-blue);
-    }
-}
-
-#taskdue, .taskdue {
-    &::-webkit-calendar-picker-indicator {
-        background-image: url(images/flag.svg);
     }
 }
 
@@ -161,6 +176,20 @@ ul {
         }
     }
 
+    .taskdata {
+        max-width: 70%;
+        overflow: scroll;
+        scrollbar-width: none;
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        transition: all 0.3s ease;
+    }
+
+    &:has(.taskcheckbox.completed) .taskdata {
+        opacity: 0.5;
+    }
+
     .taskname {
         font-family: inherit;
         font-size: 20px;
@@ -171,6 +200,7 @@ ul {
         background-color: transparent;
         border: none;
         color: black;
+        opacity: 1;
 
         &:hover,
         &:focus {
@@ -179,24 +209,44 @@ ul {
         }
     }
 
+
     .taskdetail {
         display: flex;
-        gap: (var(--spacing));
+        gap: var(--spacing);
 
-        .taskdate, .taskdue {
+        .taskdate-alt, .taskdue-alt {
+            font-family: inherit;
+            background-color: transparent;
             border-color: transparent;
-            font-size: 13px;
+            outline: none;
             padding: 2px;
+            field-sizing: content;
+        }
+
+        .taskdatewrap, .taskduewrap {
+            transition: all 0.3s ease;
+            background-color: transparent;
             border-radius: 5px;
-            width: fit-content;
+            font-size: 13px;
+            display: flex;
+            align-items: center;;
 
             &:hover, &:focus {
-                border-color: transparent;
                 background-color: color-mix(in srgb, var(--theme-blue) 10%, transparent);
             }
 
             &:active {
                 transform: scale(0.9);
+            }
+
+            .material-symbols-rounded {
+                font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 20;
+                font-size: 16px;
+                margin-left: 2px;
             }
         }
     }
@@ -250,4 +300,10 @@ ul {
     animation: warningbox 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
     border-radius: 15px;
     background-color: color-mix(in srgb, var(--theme-red) 20%, transparent);
+}
+
+@media (max-width: 768px){
+    #taskinput {
+        flex-basis: 100%;
+    }
 }

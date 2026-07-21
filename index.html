@@ -5,16 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">    
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="flatpickr_style.css">
+
+    <!-- datetime picker -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- 불러온 아이콘들 -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,close,warning">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,calendar_today,close,flag_2,warning">
     <title>Study Planner</title>
 </head>
 <body>
-    <div class="inputrow">
+    <div class="inputrow" >
         <input type="text" id="taskinput" placeholder="할 일을 입력하세요">
-        <input type="date" id="taskdue"></button>
-        <input type="date" id="taskdate"></button>
+        <div id="taskdue-wrap" data-wrap>
+            <span class="material-symbols-rounded">flag_2</span>
+            <input type="text" id="taskdue" placeholder="마감일..." data-input>
+        </div>
+        <div id="taskdate-wrap" data-wrap>
+            <span class="material-symbols-rounded">calendar_today</span>
+            <input type="text" id="taskdate" placeholder="예정일..." data-input>
+        </div>
         <button id="addtaskbutton"><span class="material-symbols-rounded">add</span></button>
     </div>
 
@@ -29,5 +40,23 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        flatpickr("#taskdue-wrap", {
+            wrap: true,
+            dateFormat: "Y-m-d",
+            disableMobile: true,
+            altInput: true,
+            altFormat: "m월 d일",
+            altInputClass: "taskdue-alt"
+        });
+        flatpickr("#taskdate-wrap", {
+            wrap: true,
+            dateFormat: "Y-m-d",
+            disableMobile: true,
+            altInput: true,
+            altFormat: "m월 d일",
+            altInputClass: "taskdate-alt"
+        });
+    </script>
 </body>
 </html>

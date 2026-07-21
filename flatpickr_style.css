@@ -1,0 +1,98 @@
+/* flatpickr 스타일 */
+.flatpickr-calendar {
+    
+    .flatpickr-months {
+        gap: var(--spacing)
+    }
+
+    .flatpickr-months .flatpickr-month  {
+        height: 45px;
+        display: flex;
+        align-items: center;
+    }
+
+    .flatpickr-months .flatpickr-prev-month {left: 5px !important;}
+    .flatpickr-months .flatpickr-next-month {right: 5px !important}
+
+    .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
+        top: 5px !important;
+
+        svg {
+            transition: all 0.3s ease;
+        }
+
+        &:hover svg {
+            fill: var(--theme-blue)
+        }
+
+        &:active svg {
+            fill: var(--theme-blue);
+            transform: scale(0.9)
+        }
+    }
+
+    .numInputWrapper:hover {
+        background-color: transparent;
+    }
+
+    .numInputWrapper span.arrowUp,
+    .numInputWrapper span.arrowDown {
+        display: none;
+    }
+
+    .flatpickr-monthDropdown-months,
+    .flatpickr-current-month .numInputWrapper {
+        transition:all 0.3s ease;
+        padding: 5px !important;
+        border-radius: 10px !important;
+        border: none;
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--theme-blue) 10%, transparent) !important;
+        }
+
+        &:active {
+            background-color: color-mix(in srgb, var(--theme-blue) 15%, transparent) !important;
+            transform: scale(0.9);
+        }
+    }
+
+    .flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+        background-color: white;
+    }
+
+    .flatpickr-current-month .numInputWrapper {
+        margin-left: 10px;
+        width: 5ch;
+    } 
+
+    .flatpickr-day {
+        transition: all 0.3s ease;
+        border-color: transparent !important;
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--theme-blue) 10%, transparent) !important;
+        }
+
+        &:active {
+            background-color: color-mix(in srgb, var(--theme-blue) 15%, transparent) !important;
+            transform: scale(0.9);
+        }
+    }
+
+    .flatpickr-day.today, .flatpickr-day.selected {
+        color: #393939 !important;
+    }
+
+    .flatpickr-day.today {
+        border-color: var(--theme-blue) !important;
+    }
+
+    .flatpickr-day.selected {
+        background-color: color-mix(in srgb, var(--theme-blue) 30%, transparent) !important;
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--theme-blue) 40%, transparent) !important;
+        }
+    }
+}
