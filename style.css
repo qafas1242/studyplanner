@@ -1,0 +1,253 @@
+:root {
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    --theme-blue: rgb(72, 97, 255);
+    --theme-red: rgb(255, 107, 107);
+    
+    /* 공통 크기 */
+    --btn-size: 35px;
+    --btn-radius: 17.5px;
+    --input-radius: 10px;
+    --spacing: 5px;
+}
+
+/* 입력창 행 */
+.inputrow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+
+    #taskinput {
+        font-family: inherit;
+        font-size: 20px;
+        border-radius: var(--input-radius);
+        padding: var(--spacing);
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        border: 2px solid gray;
+        outline: none;
+        flex: 1;
+
+        &:focus, &:hover {
+            border-color: var(--theme-blue);
+        }
+    }
+
+    #addtaskbutton {
+        width: var(--btn-size);
+        height: var(--btn-size);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--btn-radius);
+        border: none;
+        background-color: transparent;
+        appearance: none;
+        transition: all 0.3s ease;
+
+        span {
+            color: var(--theme-blue);
+        }
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--theme-blue) 10%, transparent);
+        }
+
+        &:active {
+            background-color: color-mix(in srgb, var(--theme-blue) 15%, transparent);
+            transform: scale(0.9);
+        }
+    }
+}
+
+input[type='date'] {
+    background-color: transparent;
+    width: 150px;
+    font-size: 20px;
+    padding: var(--spacing);
+    border-radius: var(--input-radius);
+    outline: none;
+    border: 2px solid gray;
+    font-family: inherit;
+    transition: all 0.3s ease;
+
+    &::-webkit-calendar-picker-indicator {
+        background-image: url(images/calendar.svg);
+    }
+
+    &:focus, &:hover {
+        border-color: var(--theme-blue);
+    }
+}
+
+#taskdue, .taskdue {
+    &::-webkit-calendar-picker-indicator {
+        background-image: url(images/flag.svg);
+    }
+}
+
+/* 구분선 */
+#separator {
+    width: 100%;
+    height: 0;
+    border: 1px solid color-mix(in srgb, var(--theme-blue) 30%, transparent);
+    margin: 20px 0 10px 0;
+}
+
+
+/* 할일 목록 */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes appeartaskitem {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes deletetaskitem {
+    from {max-height: 100px; opacity: 1; margin-bottom: 10px}
+    to {max-height: 0; opacity: 0; margin-bottom: 0}
+}
+
+.taskitem {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    border-radius: 10px;
+    gap: var(--spacing);
+    background-color: transparent;
+    border: 0px solid transparent;
+    height: fit-content;
+    margin-bottom: 10px;
+    overflow: hidden;
+    animation: appeartaskitem 1s cubic-bezier(0.19, 1, 0.22, 1);
+
+    &.deleting {
+        animation: deletetaskitem 1s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .taskcheckbox {
+        width: var(--btn-size);
+        height: var(--btn-size);
+        background-image: url('images/unchecked.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px;
+        background-color: transparent;
+        border: none;
+        transition: all ease 0.3s;
+        cursor: pointer;
+
+        &.completed {
+            background-image: url(images/checked.svg);
+        }
+
+        &:hover {
+            background-image: url(images/unchecked_hover.svg);
+
+            &.completed {
+                background-image: url(images/checked_hover.svg);
+            }
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+
+    .taskname {
+        font-family: inherit;
+        font-size: 20px;
+        border-radius: var(--input-radius);
+        padding: var(--spacing);
+        transition: all 0.3s ease;
+        field-sizing: content;
+        background-color: transparent;
+        border: none;
+        color: black;
+
+        &:hover,
+        &:focus {
+            outline: none;
+            background-color: color-mix(in srgb, var(--theme-blue) 10%, transparent);
+        }
+    }
+
+    .taskdetail {
+        display: flex;
+        gap: (var(--spacing));
+
+        .taskdate, .taskdue {
+            border-color: transparent;
+            font-size: 13px;
+            padding: 2px;
+            border-radius: 5px;
+            width: fit-content;
+
+            &:hover, &:focus {
+                border-color: transparent;
+                background-color: color-mix(in srgb, var(--theme-blue) 10%, transparent);
+            }
+
+            &:active {
+                transform: scale(0.9);
+            }
+        }
+    }
+
+    .taskdelete {
+        width: var(--btn-size);
+        height: var(--btn-size);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--btn-radius);
+        border: none;
+        background-color: transparent;
+        appearance: none;
+        transition: all 0.3s ease;
+
+        span {
+            color: var(--theme-red);
+        }
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--theme-red) 10%, transparent);
+        }
+
+        &:active {
+            transform: scale(0.9);
+            background-color: color-mix(in srgb, var(--theme-red) 15%, transparent);
+        }
+    }
+}
+
+/* warning (JS에서 생성됨) */
+@keyframes warningbox {
+    0% { bottom: 0px; opacity: 0 } 
+    50% { bottom: 50px; opacity: 1 }
+    75% { bottom: 50px; opacity: 1 }
+    100% { bottom: 50px; opacity:0 }
+}
+
+.warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing);
+    padding: 10px 0;
+    position: fixed;
+    width: 240px;
+    left: calc(50% - 120px);
+    bottom: 0px;
+    opacity: 0;
+    animation: warningbox 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+    border-radius: 15px;
+    background-color: color-mix(in srgb, var(--theme-red) 20%, transparent);
+}
