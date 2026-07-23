@@ -74,6 +74,7 @@ onAuthStateChanged(auth, async (user) => {
         createmessage(`${user.displayName} (${user.email}) 로그인됨`)
         document.getElementById('accountmenu').classList.add('logined');
         document.getElementById('logineduser').innerHTML = `(${user.displayName})`;
+        document.getElementById('notloginwarning').innerHTML = '';
         const tasksraw = await gettasks();
         tasks = JSON.parse(tasksraw);
         console.log(tasks);
@@ -82,6 +83,7 @@ onAuthStateChanged(auth, async (user) => {
         createmessage("로그인되어 있지 않음")
         document.getElementById('accountmenu').classList.remove('logined');
         document.getElementById('logineduser').innerHTML = '';
+        document.getElementById('notloginwarning').innerHTML = '현재의 내용은 새로고침하면 사라집니다. 오른쪽 버튼을 눌러 로그인하세요.';
         tasks = [];
         rendertasklist();
     }
