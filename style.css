@@ -65,7 +65,7 @@ header {
     }
 
     /* 버튼 스타일 */
-    #login, #logout {
+    #login, #logout, #save {
         margin-top: 10px;
         padding: 5px;
         align-items: center;
@@ -96,7 +96,7 @@ header {
 
     /* 기본적으로 로그인 버튼 보이고, 로그아웃 버튼 안보임 */
     #login { display: flex; }
-    #logout {display: none;}
+    #logout, #save {display: none;}
 
     &::before {
         content: '로그인되지 않음';
@@ -106,7 +106,7 @@ header {
     &.logined {
         /* 로그인되어 있으면 그 반대 */
         #login { display: none; }
-        #logout {display: flex;}
+        #logout, #save {display: flex;}
 
         &::before {
             content: '로그인됨';
