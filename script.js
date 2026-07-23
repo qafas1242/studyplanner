@@ -1,14 +1,16 @@
-// 주의 문구 띄우기
-function createwarning(content) {
-    let warningelement = document.createElement('div');
-    warningelement.classList.add('warning');
-    warningelement.innerHTML = `<span class='material-symbols-rounded'>warning</span>
-    <span>${content}</span>`
-    document.getElementById('warnings').appendChild(warningelement);
-    warningelement.addEventListener('animationend', function() {
-        warningelement.remove();
-    })
-}
+const accbtn = document.getElementById('accountbutton');
+const accmenu = document.getElementById('accountmenu')
+// 계정 메뉴
+accbtn.addEventListener('click', function() {
+    accmenu.classList.toggle('open')
+    event.stopPropagation();
+})
+
+document.addEventListener('click', (event) => {
+  if (!accmenu.contains(event.target)) {     // 클릭한 위치가 menu 안에 없으면 닫기
+    accmenu.classList.remove('open');
+  }
+});
  
 var tasks = []; 
 
@@ -16,6 +18,10 @@ var tasks = [];
 function savetasks() {
     const tasksstring = JSON.stringify(tasks);
     window.localStorage.setItem('tasks', tasksstring);
+    // 로그인 상태이면 Firestore에도 저장
+    if (window.userdata && window.saveTasksToFirestore) {
+        window.saveTasksToFirestore(tasks).catch(err => console.error('Firestore save error', err));
+    }
 }
 
 // 할일 목록을 바탕으로 렌더링
@@ -36,7 +42,7 @@ function addtodo() {
     const taskdate = document.getElementById('taskdate').value;
     const taskdue = document.getElementById('taskdue').value;
     if (!taskname) {
-        createwarning('할일 이름이 비어 있습니다')
+        createmessage('할일 이름이 비어 있습니다')
         return; // 빈 입력은 추가하지 않음
     }
     const newtask = {"name": taskname, "completed": false, "date": taskdate, "due": taskdue}

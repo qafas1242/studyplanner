@@ -12,19 +12,31 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- 불러온 아이콘들 -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,calendar_today,close,flag_2,warning">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,calendar_today,close,flag_2,person,warning">
     <title>Study Planner</title>
 </head>
 <body>
+    <header>
+        <h1>Study Planner</h1>
+        <div style="flex-grow: 1"></div>
+        <button id="accountbutton"><span class="material-symbols-rounded">person</span></button>
+    </header>
+
+    <div id="accountmenu">
+        <span id="logineduser">Username</span>
+        <button id="login"><span class="material-symbols-rounded">person</span> 로그인</button>
+        <button id="logout"><span class="material-symbols-rounded">person</span> 로그아웃</button>
+    </div>
+
     <div class="inputrow" >
         <input type="text" id="taskinput" placeholder="할 일을 입력하세요">
+         <div id="taskdate-wrap" data-wrap>
+            <span class="material-symbols-rounded">calendar_today</span>
+            <input type="text" id="taskdate" placeholder="예정일..." data-input>
+        </div>
         <div id="taskdue-wrap" data-wrap>
             <span class="material-symbols-rounded">flag_2</span>
             <input type="text" id="taskdue" placeholder="마감일..." data-input>
-        </div>
-        <div id="taskdate-wrap" data-wrap>
-            <span class="material-symbols-rounded">calendar_today</span>
-            <input type="text" id="taskdate" placeholder="예정일..." data-input>
         </div>
         <button id="addtaskbutton"><span class="material-symbols-rounded">add</span></button>
     </div>
@@ -39,6 +51,13 @@
         <!-- 여기에는 JS를 통해 warning이 추가됨 -->
     </div>
 
+    <div id="flatpickr">
+        <!-- 여기에는 flatpickr을 통해 날짜 선택기가 추가됨 -->
+    </div>
+
+    
+    <script src="createmessage.js"></script>
+    <script src="firestore.js" type="module"></script>
     <script src="addtask.js"></script>
     <script src="script.js"></script>
     <script> 
@@ -48,7 +67,8 @@
             disableMobile: true,
             altInput: true,
             altFormat: "m월 d일",
-            altInputClass: "taskdue-alt"
+            altInputClass: "taskdue-alt",
+            appendTo: document.getElementById('flatpickr')
         });
         flatpickr("#taskdate-wrap", {
             wrap: true,
@@ -56,7 +76,8 @@
             disableMobile: true,
             altInput: true,
             altFormat: "m월 d일",
-            altInputClass: "taskdate-alt"
+            altInputClass: "taskdate-alt",
+            appendTo: document.getElementById('flatpickr')
         });
     </script>
 </body>
