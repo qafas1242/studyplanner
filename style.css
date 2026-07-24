@@ -29,6 +29,7 @@ header {
     h1 {
         margin: 2px 5px;
         font-size: 25px;
+        font-weight: 800;
         background: linear-gradient(45deg, var(--theme-blue) 0%, rgb(32, 11, 183) 100%);
         background-clip: text;
         color: transparent;
@@ -36,13 +37,12 @@ header {
     }
 
     #notloginwarning {
-        flex-grow: 1; 
-        text-align: center;
-        color: var(--theme-red);
+        flex-grow: 1;
     }
 
     button {
         left: 5px;
+        color: black;
     }
 }
 
